@@ -2,6 +2,8 @@
   "name": "www.confs.tech-data",
   "version": "0.1.0",
   "dependencies": {
+    "@actions/core": "^1.2.3",
+    "@actions/github": "^2.1.1",
     "baretest": "^2.0.0",
     "date-fns": "^2.12.0"
   },

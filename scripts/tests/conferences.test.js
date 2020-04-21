@@ -4,6 +4,8 @@ const parse = require('date-fns/parse');
 const getDuplicates = require('./utils');
 const validLocations = require('./validLocations');
 const conferenceReader = require('../conferenceReader');
+const github = require('@actions/github');
+const core = require('@actions/core');
 
 const twitterRegex = /@(\w){1,15}$/;
 const httpRegex = /^http(s?):\/\//;
@@ -85,6 +87,24 @@ for (const year of Object.keys(conferencesJSON)) {
 !(async function () {
     const result = await test.run();
     if (!result) {
+
+        const myToken = core.getInput('myToken');
+        const octokit = new github.GitHub(myToken);
+
+        await octokit.pulls.createReview({
+            owner: 'cgrail',
+            repo: 'conference-data',
+            pull_number: 9,
+            event: "COMMENT",
+            comments: [
+                {
+                    path: "conferences/2020/android.json",
+                    position: 7,
+                    "body": "Please add more information here, and fix this typo."
+                }
+            ]
+        });
+
         process.exitCode = 1;
         process.exit(1);
     }
