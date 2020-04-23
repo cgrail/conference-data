@@ -93,7 +93,7 @@ for (const year of Object.keys(conferencesJSON)) {
         await octokit.pulls.createReview({
             owner: 'cgrail',
             repo: 'conference-data',
-            pull_number: 9,
+            pull_number: 15,
             event: "COMMENT",
             comments: [
                 {
