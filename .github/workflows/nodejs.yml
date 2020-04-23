@@ -17,7 +17,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        myToken: ${{ secrets.GITHUB_TOKEN }}
     - run: npm ci --production
     - run: npm test
       env:
