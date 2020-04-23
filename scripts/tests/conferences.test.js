@@ -5,7 +5,6 @@ const getDuplicates = require('./utils');
 const validLocations = require('./validLocations');
 const conferenceReader = require('../conferenceReader');
 const github = require('@actions/github');
-const core = require('@actions/core');
 
 const twitterRegex = /@(\w){1,15}$/;
 const httpRegex = /^http(s?):\/\//;
@@ -88,8 +87,8 @@ for (const year of Object.keys(conferencesJSON)) {
     const result = await test.run();
     if (!result) {
 
-        const myToken = core.getInput('myToken');
-        const octokit = new github.GitHub(myToken);
+        const token = process.env['GITHUB_TOKEN'];
+        const octokit = new github.GitHub(token);
 
         await octokit.pulls.createReview({
             owner: 'cgrail',
