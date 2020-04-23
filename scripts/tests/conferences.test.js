@@ -4,7 +4,7 @@ const parse = require('date-fns/parse');
 const getDuplicates = require('./utils');
 const validLocations = require('./validLocations');
 const conferenceReader = require('../conferenceReader');
-const github = require('@actions/github');
+const { github, context } = require('@actions/github');
 
 const twitterRegex = /@(\w){1,15}$/;
 const httpRegex = /^http(s?):\/\//;
@@ -93,7 +93,7 @@ for (const year of Object.keys(conferencesJSON)) {
         await octokit.pulls.createReview({
             owner: 'cgrail',
             repo: 'conference-data',
-            pull_number: 9,
+            pull_number: context.issue.number,
             event: "COMMENT",
             comments: [
                 {
