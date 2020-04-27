@@ -131,6 +131,7 @@ function logTestResult() {
 }
 logTestResult();
 console.timeEnd(label);
+console.log(process.env.TERM);
 
 if (hasErrors) {
     colorLog.redln('Tests failed');
